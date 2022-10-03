@@ -1,0 +1,7 @@
+drw-r--r-- - sarkoxedaf  4 Oct 02:25 dir
+.r--r----- 4 root        4 Oct 02:23 file
+.rw------- 0 sarkoxedaf  4 Oct 02:26 file1
+.rw-rw-rw- 0 sarkoxedaf  4 Oct 02:27 file2
+
+./dir:
+[./dir/new_file: Permission denied (os error 13)]
