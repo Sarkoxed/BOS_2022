@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ps -eo %mem,pid | sort -n -r | head -n5 | awk '{print $2};
+ps -eo pid,comm --sort -%mem | head -n 6 #| tail -n +2;
