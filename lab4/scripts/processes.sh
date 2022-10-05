@@ -2,6 +2,6 @@
 
 echo "Процессов пользователя:";
 whoami;
-ps axo user | grep -Ec "^$(whoami)$";
+ps -U "$(whoami)" | wc -l;
 echo "Процессов пользователя root:";
-ps axo user | grep -Ec "^root$";
+ps -U root | wc -l;
