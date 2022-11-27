@@ -68,9 +68,8 @@ grep :/bin/bash /etc/passwd | wc -l
 grep :/bin/bash /etc/passwd
 grep :/bin/bash /etc/passwd | cut -d: -f1 | sort -r
 man sort
-man pacman
-pacman -Qi | grep -E '^(Installed|Name)' | cut -f2 -d: | tr -d ' ' | tr '\n' ' ' | sed 's/B /B\n/g' | sort -k2 -h -r | cut -d" " -f1 | head -n 25
-man --path | tr ":" "\n" | xargs -I% du -h % | sort -k1 -hr
+rpm -qa --qf '%{NAME}: %{SIZE}\n' | sort -rn -k2,2 | head -25
+rpm -ql man-db | xargs -l du 2> /dev/null  | sort -n
 top -b -n1 
 top -b -n1 | tail -n+8 | sort -k11
 top -b -n1 | tail -n+8 | sort -k12
