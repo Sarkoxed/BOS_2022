@@ -19,23 +19,23 @@
 <br>`sudo find /home -name "*.bin"`
 
 1. Найдите все **файлы** (и только файлы) с расширением `bak` и удалите их.
-<br>`find -name "*.bak" -type f | xargs rm`
+<br>`find -name "*.bak" -type f | xargs -d '\n' rm`
 
 1. Найдите все **файлы** (и только файлы) с расширениями `txt` и `sh`.
 <br>`find -regex '.*\.\(txt\|sh\)$' -type f`
 <br>`find -type f \( -name "*.sh" -o -name "*.txt" \)`
 
 1. Найдите все **файлы** (и только файлы) в текущем каталоге и выведите **только** имя файла (без каталога), владельца, группу владельца, количество жёстких ссылок на этот файл и его размер в байтах.
-<br>`find -type f | xargs ls -l | awk '{print $9, $3, $4, $2, $5}' `
+<br>`find -type f | xargs -d '\n' ls -l | awk '{print $9, $3, $4, $2, $5}' `
 
 1. Найдите все пустые **каталоги** в текущем каталоге.
 <br>`find -type d -empty`
 
 1. Найдите все пустые **каталоги** в текущем каталоге и удалите их.
-<br>`find -type f -empty | xargs rmdir`
+<br>`find -type f -empty | xargs -d '\n' rmdir`
 
 1. Найдите и удалите все пустые **файлы** (и только файлы).
-<br>`find -type f -empty | xargs rm`
+<br>`find -type f -empty | xargs -d '\n' rm`
 
 1. Найдите все **файлы** (и только файлы) в текущем каталоге, на которые есть хотя бы одна жёсткая ссылка.
 <br>`find -type f -links +0`
@@ -44,7 +44,7 @@
 <br>`sudo find /etc -not -user root`
 
 1. Найдите все **файлы** (и только файлы), у которых **нет** расширения `sh`.
-<br>`find -type f -not -name "*.sh"`
+<br>`find / -type f -not -name "*.sh"`
 
 1. Найдите все **файлы** (и только файлы), у которых количество жёстких ссылок более двух.
 <br>`find -type f -links +2`
@@ -56,7 +56,7 @@
 <br>`find /usr/bin /usr/share -type f -ctime -10`
 
 1. Найдите и удалите все **файлы** (и только файлы) в каталоге `/tmp`, которые не менялись более двух недель.
-<br>`find /tmp -type f -ctime +14 | xargs rm`
+<br>`find /tmp -type f -ctime +14 | xargs -d '\n' rm`
 
 1. Найдите все **файлы** (и только файлы) в каталоге `/usr/bin` с установленным флагом suid/sgid.
 <br>`find /usr/bin -type f -perm /6000`
@@ -68,16 +68,16 @@
 
 1. Найдите все **файлы** (и только файлы) с расширением `txt` и подсчитайте количество строк во всех этих файлах.
 <br>`find -type f -name "*.txt" -exec wc -l {} \;`
-<br>`find -type f -name "*.txt" | xargs wc -l`
+<br>`find -type f -name "*.txt" | xargs -d '\n' wc -l`
 
 1. Найдите все каталоги с названием `.svn` и удалите их, включая содержимое этих каталогов, попутно выводя список удалённых файлов на экран.
-<br>`find -type d -name ".svn" | xargs -I{} ls -R {} && rm -rf {}`
+<br>`find -type d -name ".svn" | xargs -d '\n' -I{} ls -R {} && rm -rf {}`
 
 1. Найдите все **файлы** (и только файлы) с расширением `sh` и добавьтем им право на исполнение.
-<br>`find -type f -name "*.sh" | xargs chmod +x`
+<br>`find -type f -name "*.sh" | xargs -d '\n' chmod +x`
 
 1. Найдите все **файлы** (и только файлы) с расширением `conf` в каталоге `/etc` и подсчитайте их суммарный размер, используя команду du.
-<br>`sudo find /etc -type f -name "*.conf" | xargs du -ch | tail -1 | cut -f 1`
+<br>`sudo find /etc -type f -name "*.conf" | xargs -d '\n' du -ch | tail -1 | cut -f 1`
 
 Протестируйте команды, которые вы написали выше, для файлов и каталогов, в именах которых содержатся пробелы и специальные символы, такие как `!` и `&`.
 
@@ -92,7 +92,7 @@
 <br>`grep -iv "ERROR" /var/log/messages | wc -l`
 
 1. Из файла `/var/log/messages` вывести строки, содержащие **только слово `ERROR` целиком**, с учётом регистра.
-<br>`grep -E "^ERROR$" /var/log/messages`
+<br>`grep "ERROR" /var/log/messages`
 
 1. Вывести количество строк из файла `/etc/group`, совпадающих с шаблоном `wheel`.
 <br>`grep wheel /etc/group | wc -l`
@@ -104,10 +104,10 @@
 <br>`grep -r \#\!/bin/bash -A 10`
 
 1. Найти во всех файлах с расширением `sh` из текущего каталога и вложенных подкаталогов строки, содержащие слово `echo` **целиком**. В выводе команды `grep` найденные слова выделите цветом.
-<br>`find -type f -name "*.sh" | xargs grep -E "^echo$" --color=auto`
+<br>`find -type f -name "*.sh" | xargs -d '\n' grep "echo" --color=auto`
 
 1. Измените предыдущую команду таким образом, чтобы команда grep отображала также имя файла и номер строки, в которой было обнаружено совпадение с шаблоном.
-<br>`find -type f -name "*.sh" | xargs grep -E "^echo$" --color=auto -n`
+<br>`find -type f -name "*.sh" | xargs -d '\n' grep "echo" --color=auto -n`
 
 # Отчёт по лабораторной работе
 
