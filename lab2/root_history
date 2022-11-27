@@ -1,6 +1,6 @@
 cd test/
 chown root file
-chmod 400 file
+chmod 600 file
 exit
-chmod 440 test/file
+chmod g+r test/file
 exit
