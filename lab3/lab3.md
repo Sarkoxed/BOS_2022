@@ -68,20 +68,18 @@
 
 1. Найдите все **файлы** (и только файлы) с расширением `txt` и подсчитайте количество строк во всех этих файлах.
 <br>`find -type f -name "*.txt" -exec wc -l {} \;`
-<br>`find -type f -name "*.txt" | xargs -d '\n' wc -l`
+<br>`find -type f -name "*.txt" | xargs -d '\n' -I{} wc -l "{}"`
 
 1. Найдите все каталоги с названием `.svn` и удалите их, включая содержимое этих каталогов, попутно выводя список удалённых файлов на экран.
-<br>`find -type d -name ".svn" | xargs -d '\n' -I{} ls -R {} && rm -rf {}`
+<br>`find -type d -name "*.svn" | xargs -d '\n' -I{} sh -c 'ls -R "{}" && rm -rf "{}"' `
 
 1. Найдите все **файлы** (и только файлы) с расширением `sh` и добавьтем им право на исполнение.
-<br>`find -type f -name "*.sh" | xargs -d '\n' chmod +x`
+<br>`find -type f -name "*.sh" | xargs -d '\n' -I{} chmod +x "{}"`
 
 1. Найдите все **файлы** (и только файлы) с расширением `conf` в каталоге `/etc` и подсчитайте их суммарный размер, используя команду du.
-<br>`sudo find /etc -type f -name "*.conf" | xargs -d '\n' du -ch | tail -1 | cut -f 1`
+<br>`sudo find /etc -type f -name "*.conf" | xargs -d '\n' -I{} du -ch "{}" | tail -1 | cut -f 1`
 
 Протестируйте команды, которые вы написали выше, для файлов и каталогов, в именах которых содержатся пробелы и специальные символы, такие как `!` и `&`.
-
-Команды с exec отрабатывают нормально, xargs же без указанного разделителя ломается на пробельных названиях.
 
 Используя команду `grep`:
 
@@ -92,7 +90,7 @@
 <br>`grep -iv "ERROR" /var/log/messages | wc -l`
 
 1. Из файла `/var/log/messages` вывести строки, содержащие **только слово `ERROR` целиком**, с учётом регистра.
-<br>`grep "ERROR" /var/log/messages`
+<br>`grep -w "ERROR" /var/log/messages`
 
 1. Вывести количество строк из файла `/etc/group`, совпадающих с шаблоном `wheel`.
 <br>`grep wheel /etc/group | wc -l`
@@ -104,10 +102,10 @@
 <br>`grep -r \#\!/bin/bash -A 10`
 
 1. Найти во всех файлах с расширением `sh` из текущего каталога и вложенных подкаталогов строки, содержащие слово `echo` **целиком**. В выводе команды `grep` найденные слова выделите цветом.
-<br>`find -type f -name "*.sh" | xargs -d '\n' grep "echo" --color=auto`
+<br>`grep -rw "echo" --include "*.sh" --color=auto`
 
 1. Измените предыдущую команду таким образом, чтобы команда grep отображала также имя файла и номер строки, в которой было обнаружено совпадение с шаблоном.
-<br>`find -type f -name "*.sh" | xargs -d '\n' grep "echo" --color=auto -n`
+<br>`grep -rw "echo" --include "*.sh" --color=auto -n`
 
 # Отчёт по лабораторной работе
 
