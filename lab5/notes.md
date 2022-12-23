@@ -1,4 +1,4 @@
-i.    Ctrl+c посылает процессу сигнал SIGINT, что позже обрабатывается trap'ом
+i.    С помощью Ctrl+c посылаем процессу сигнал SIGINT, что триггерит trap
 ii.   $$ - pid шелла, self же в ls -l /proc/self - pid ls
 iii.  0 - stdin, 1 - stdout, 2 - stderr
 iv.   stdout перенаправится в /tmp/ls.out, stderr - в /tmp/ls.err
