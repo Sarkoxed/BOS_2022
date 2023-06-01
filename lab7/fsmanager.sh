@@ -5,7 +5,7 @@ usage(){
     echo "FileSystem manager";
     echo;
     echo "Mandatory arguments to long options are mandatory for short options too."
-    echo "      --help        display this help and exit"
+    echo "  -h | --help        display this help and exit"
     exit 0
 }
 
@@ -20,4 +20,33 @@ errexit(){
     exit 1
 }
 
-errexit aboba;
+
+parse_params(){
+    while :; do
+        case $1 in
+        -h|--help) usage;;
+        #-s|--searchpath)
+        #  SEARCHPATH="$2"
+        #  shift # past argument
+        #  shift # past value
+        #  ;;
+        #--default)
+        #  DEFAULT=YES
+        #  shift # past argument
+        #  ;;
+        -*)
+          errexit "Unknown option $1";;
+        *)
+          POSITIONAL_ARGS+=("$1"); # save positional arg
+          shift;;
+  esac
+
+    done
+}
+
+menu(){
+    echo "1) kek"
+}
+
+isroot;
+parse_params "$@";
