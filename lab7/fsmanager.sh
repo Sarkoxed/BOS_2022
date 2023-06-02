@@ -45,8 +45,10 @@ parse_params(){
 }
 
 menu(){
-    echo "1) kek"
+    echo "1) вывести таблицу файловых систем;"
+    echo "2) "
 }
 
 isroot;
 parse_params "$@";
+
